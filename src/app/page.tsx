@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  Activity, ArrowDownToLine, ArrowRight, Bell, BookOpen, BriefcaseBusiness,
+  Activity, ArrowDownToLine, Bell, BookOpen, BriefcaseBusiness,
   ChartNoAxesCombined, CheckCheck, ChevronDown, CircleHelp,
   ClipboardCheck, FileText, GraduationCap, LayoutDashboard,
   Menu, Plus, Search, Settings2, ShieldCheck, Users, X,
@@ -43,9 +43,10 @@ const barData = [
 function Sidebar({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate?: () => void }) {
   const renderItems = (items: NavItem[]) => items.map((item) => {
     const Icon = item.icon;
-    return <a key={item.label} href={item.active ? "#overview" : "#coming-next"} onClick={onNavigate} className={`nav-item ${item.active ? "active" : ""}`} aria-current={item.active ? "page" : undefined}>
-      <span className="nav-icon"><Icon size={17} strokeWidth={1.8} /></span><span>{item.label}</span>{item.active ? <span style={{ marginLeft: "auto", fontSize: 9 }}>●</span> : null}
-    </a>;
+    const contents = <><span className="nav-icon"><Icon size={17} strokeWidth={1.8} /></span><span>{item.label}</span>{item.active ? <span style={{ marginLeft: "auto", fontSize: 9 }}>●</span> : <span className="nav-planned">Planned</span>}</>;
+    return item.active
+      ? <a key={item.label} href="#overview" onClick={onNavigate} className="nav-item active" aria-current="page">{contents}</a>
+      : <span key={item.label} className="nav-item" aria-disabled="true" title="This route is planned and not implemented yet">{contents}</span>;
   });
   return <aside className={`sidebar ${mobile ? "mobile-open" : ""}`}>
     <a className="brand" href="#overview" aria-label="Techievo LMS home" onClick={onNavigate}>
@@ -69,7 +70,7 @@ export default function HomePage() {
         <div className="topbar-actions"><label className="search-box"><Search size={15} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search sample students…" aria-label="Search sample students" /></label><button className="icon-button" aria-label="Notifications (preview only)" title="Notifications are not connected yet"><Bell size={16} /></button><div className="avatar" style={{ width: 32, height: 32, background: "#f5c400" }}>SA</div></div>
       </header>
       <main className="main-content">
-        <div className="page-heading"><div><div className="eyebrow">Platform operations</div><h1>Learning operations, at a glance.</h1><p>Monitor institution setup, learning activity, and review throughput from one workspace.</p></div><div className="heading-actions"><button className="btn" onClick={() => window.print()}><ArrowDownToLine size={14} /> Export view</button><a className="btn btn-primary" href="#quick-actions"><Plus size={15} /> Create workspace item</a></div></div>
+        <div className="page-heading"><div><div className="eyebrow">Platform operations</div><h1>Learning operations, at a glance.</h1><p>Monitor institution setup, learning activity, and review throughput from one workspace.</p></div><div className="heading-actions"><button className="btn" onClick={() => window.print()}><ArrowDownToLine size={14} /> Print / save</button><a className="btn btn-primary" href="#quick-actions"><Plus size={15} /> Explore workflows</a></div></div>
         <div className="sample-note" role="note"><span className="sample-dot" /><span><strong>UI foundation preview.</strong> All names, counts, activity and chart values below are illustrative sample data. Authentication, database-backed metrics and write actions are not connected yet.</span></div>
         <section className="metrics-grid" aria-label="Illustrative platform metrics">
           <Metric title="Institutions" value="08" foot="Sample workspaces" icon={<BriefcaseBusiness size={16} />} />
@@ -94,7 +95,7 @@ function Metric({ title, value, foot, icon }: { title: string; value: string; fo
   return <article className="metric-card"><div className="metric-top"><span>{title}</span><span className="metric-icon">{icon}</span></div><div className="metric-value">{value}</div><div className="metric-foot">{foot}</div></article>;
 }
 function QuickAction({ icon, title, detail }: { icon: React.ReactNode; title: string; detail: string }) {
-  return <a href="#delivery-notes" className="quick-card"><span className="quick-icon">{icon}</span><span><strong>{title}</strong><p>{detail}</p></span><ArrowRight className="quick-arrow" size={16} /></a>;
+  return <div className="quick-card"><span className="quick-icon">{icon}</span><span><strong>{title}</strong><p>{detail}</p><span className="status pending" style={{ marginTop: 9 }}><span className="status-dot" />Planned workflow</span></span></div>;
 }
 function Guardrail({ title, detail }: { title: string; detail: string }) {
   return <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}><span style={{ color: "#9a7800", marginTop: 2 }}><ShieldCheck size={16} /></span><div><strong style={{ fontSize: 11 }}>{title}</strong><p style={{ margin: "4px 0 0", color: "#777", fontSize: 10, lineHeight: 1.6 }}>{detail}</p></div></div>;
