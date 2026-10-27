@@ -51,4 +51,22 @@ This repository is being initialized in phases. A committed file is not evidence
 
 ## Local setup
 
-The exact commands will be finalized when the initial app and database schema are in place. Do not run production migrations until a backup and rollback plan is confirmed.
+1. Install Node.js 22 and PostgreSQL.
+2. Run `npm install`.
+3. Copy `.env.example` to `.env.local`; set a local `DATABASE_URL`, a unique `AUTH_SECRET`, and `AUTH_URL=http://localhost:3000`.
+4. Run `npm run db:generate`.
+5. With a local development database only, run `npx prisma migrate dev --name init` and commit the generated migration files.
+6. Create the first platform administrator once, using environment variables rather than command-line literals saved in shell history: `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_NAME`, and `BOOTSTRAP_ADMIN_PASSWORD` (minimum 16 characters), then run `npm run admin:bootstrap`. The script refuses to overwrite an existing account.
+7. Run `npm run dev`.
+
+Verification commands: `npm run typecheck`, `npm run lint`, `npm test`, and `npm run build`.
+
+## Current limitations
+
+- The root route is an explicitly labelled UI preview with sample data; it is not a live operational dashboard.
+- The login and invitation/account-setup paths are implemented, but rate limiting, password-reset delivery, privileged-user MFA and a full security review remain launch gates.
+- The invitation endpoint returns a one-time link; it does not send email yet.
+- Role/resource policy helpers exist, but every data route must still be wired to them and tested for tenant isolation.
+- Database migrations must be generated and reviewed against a real development database before deployment.
+
+Never run production migrations until a backup and rollback plan is confirmed.
