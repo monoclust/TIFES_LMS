@@ -27,7 +27,7 @@ function normalizeRecord(raw: Record<string, unknown>): Record<string, unknown> 
   for (const [header, value] of Object.entries(raw)) {
     const key = header.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
     const field = headerAliases[key];
-    if (field) output[field] = value == null ? "" : String(value).trim();
+    if (field) output[field] = field === "status" ? String(value ?? "").trim().toUpperCase() : value == null ? "" : String(value).trim();
   }
   return output;
 }
@@ -174,7 +174,6 @@ async function analyse(actor: Actor, institutionId: string, file: File): Promise
     validRows.push({ ...item, batchId });
   }
 
-  if (validRows.length + errors.length > MAX_ROWS + parsed.errors.length) throw new Error("ROW_LIMIT_EXCEEDED");
   return { totalRows: parsed.rows.length, validRows, errors };
 }
 
@@ -183,7 +182,7 @@ export async function previewStudentImport(actor: Actor, institutionId: string, 
   return {
     totalRows: result.totalRows,
     validRows: result.validRows.length,
-    invalidRows: result.errors.length,
+    invalidRows: new Set(result.errors.map((error) => error.row)).size,
     errors: result.errors.slice(0, 200),
     preview: result.validRows.slice(0, 25).map((row) => ({
       row: row.row,
@@ -200,7 +199,7 @@ export async function previewStudentImport(actor: Actor, institutionId: string, 
 export async function commitStudentImport(actor: Actor, institutionId: string, file: File) {
   const result = await analyse(actor, institutionId, file);
   if (result.validRows.length === 0) {
-    return { imported: 0, enrolled: 0, totalRows: result.totalRows, invalidRows: result.errors.length, errors: result.errors.slice(0, 200) };
+    return { imported: 0, enrolled: 0, totalRows: result.totalRows, invalidRows: new Set(result.errors.map((error) => error.row)).size, errors: result.errors.slice(0, 200) };
   }
 
   const imported = await prisma.$transaction(async (tx) => {
@@ -236,5 +235,5 @@ export async function commitStudentImport(actor: Actor, institutionId: string, f
     return { imported: data.length, enrolled: enrollments.length };
   });
 
-  return { ...imported, totalRows: result.totalRows, invalidRows: result.errors.length, errors: result.errors.slice(0, 200) };
+  return { ...imported, totalRows: result.totalRows, invalidRows: new Set(result.errors.map((error) => error.row)).size, errors: result.errors.slice(0, 200) };
 }
