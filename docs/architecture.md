@@ -49,4 +49,4 @@ Next.js App Router, React, TypeScript, Tailwind CSS, Lucide icons, PostgreSQL, P
 
 ## Current status
 
-This is an architecture baseline, not a deployed topology. The first UI shell uses clearly labelled illustrative data and has no production authentication or database connection.
+The repository now contains a responsive UI preview, Auth.js credentials configuration, a Prisma client singleton, an authenticated workspace handoff, invitation inspection/acceptance, an initial-admin bootstrap script, pure authorization helpers, validation utilities and unit tests. The root dashboard still uses labelled illustrative data. Authentication and invitation code are not a substitute for a security review; login rate limiting, password-reset delivery, MFA for privileged users, migration generation/review, and comprehensive tenant-isolation integration tests remain outstanding. This is not a deployed topology.
