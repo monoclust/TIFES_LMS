@@ -3,8 +3,8 @@
 import { useState } from "react";
 import {
   Activity, ArrowDownToLine, ArrowRight, Bell, BookOpen, BriefcaseBusiness,
-  CalendarDays, ChartNoAxesCombined, CheckCheck, ChevronDown, CircleHelp,
-  ClipboardCheck, Clock3, Command, FileText, GraduationCap, LayoutDashboard,
+  ChartNoAxesCombined, CheckCheck, ChevronDown, CircleHelp,
+  ClipboardCheck, FileText, GraduationCap, LayoutDashboard,
   Menu, Plus, Search, Settings2, ShieldCheck, Users, X,
 } from "lucide-react";
 
