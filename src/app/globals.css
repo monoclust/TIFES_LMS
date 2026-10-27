@@ -80,3 +80,33 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .workspace-note{font-size:10px!important;margin-top:20px}
 @media(max-width:780px){.auth-page{grid-template-columns:1fr}.auth-story{display:none}.auth-panel{min-height:100vh;padding:34px 22px}.auth-mobile-logo{display:block;width:132px;height:auto;margin-bottom:34px}.auth-panel h2{font-size:28px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* Super Admin institution directory */
+.admin-page{min-height:100vh;background:#f7f7f5}
+.admin-topbar{height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 clamp(16px,4vw,56px);background:#fff;border-bottom:1px solid #e7e7e7}
+.admin-brand{display:flex;align-items:center}.admin-top-actions{display:flex;align-items:center;gap:14px;color:#777;font-size:11px}
+.admin-content{max-width:1440px;margin:0 auto;padding:28px clamp(15px,4vw,56px) 48px}
+.admin-breadcrumb{display:flex;gap:9px;color:#777;font-size:11px;margin-bottom:20px}.admin-breadcrumb span{color:#bbb}
+.admin-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:23px}
+.admin-heading h1{font-size:30px;letter-spacing:-1.2px;line-height:1.15;margin:7px 0 8px}.admin-heading p{margin:0;color:#777;font-size:12px}
+.admin-total{display:flex;align-items:center;gap:10px;border:1px solid #e5e5e5;background:#fff;border-radius:11px;padding:12px 15px}
+.admin-total>span{display:grid;gap:2px}.admin-total strong{font-size:20px;line-height:1}.admin-total small{font-size:9px;color:#777}
+.admin-panel{background:#fff;border:1px solid #e5e5e5;border-radius:13px;overflow:hidden}
+.admin-panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 19px;border-bottom:1px solid #eee}
+.admin-panel-head h2{display:flex;align-items:center;gap:8px;font-size:13px;margin:0}.admin-panel-head p{font-size:10px;color:#777;margin:5px 0 0}
+.admin-success{border:1px solid #bde6ca;background:#effaf2;color:#22643a;border-radius:9px;padding:11px 14px;font-size:11px;margin:0 0 16px}
+.institution-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;padding:19px}
+.form-field{display:grid;gap:6px;min-width:0}.form-field label,.invite-form label{font-size:10px;font-weight:800;color:#333}
+.form-field input,.form-field select,.form-field textarea,.invite-row input{width:100%;min-width:0;border:1px solid #dedede;border-radius:8px;background:#fff;padding:10px 11px;color:#111;font:inherit;font-size:11px}
+.form-field textarea{resize:vertical}.form-field small{font-size:9px;color:#888}.form-field-wide{grid-column:1/-1}
+.form-actions{grid-column:1/-1;display:flex;justify-content:flex-end;padding-top:3px}
+.admin-directory-head{align-items:flex-end}.admin-search{display:flex;align-items:center;gap:8px;border:1px solid #e2e2e2;border-radius:9px;padding:4px 5px 4px 10px;min-width:min(100%,360px);color:#777}
+.admin-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:5px 0;font-size:11px}
+.admin-table td{vertical-align:top}.admin-table td>strong{display:block;font-size:11px}.admin-subline{display:block;color:#888;font-size:9px;margin-top:3px}
+.admin-count{display:inline-flex;align-items:center;gap:5px;color:#555}.admin-empty{text-align:center!important;padding:30px!important;color:#777!important}
+.admin-invite-cell{margin-top:10px;max-width:360px}
+.invite-box{border:1px solid #eee;background:#fafafa;border-radius:9px;padding:10px}
+.invite-form{display:grid;gap:7px}.invite-row{display:flex;gap:6px;align-items:center}.invite-row input{flex:1;min-width:0;background:#fff;padding:8px}.invite-row .btn{padding:8px 9px;font-size:10px}
+.invite-result{margin-top:10px;border-top:1px solid #e7e7e7;padding-top:9px}.invite-result p{font-size:10px;color:#666;line-height:1.5;margin:0 0 7px}.invite-url{font-size:9px;line-height:1.5;overflow-wrap:anywhere;padding:8px;background:#fff;border:1px solid #e6e6e6;border-radius:6px;margin-bottom:7px}
+.admin-footer{text-align:center;color:#888;font-size:10px;margin-top:22px}
+@media(max-width:760px){.admin-topbar{height:62px}.admin-top-actions>span{display:none}.admin-content{padding-top:22px}.admin-heading{display:block}.admin-total{display:inline-flex;margin-top:16px}.institution-form{grid-template-columns:1fr;padding:14px}.form-field-wide,.form-actions{grid-column:1}.admin-panel-head,.admin-directory-head{display:grid;align-items:stretch}.admin-search{min-width:0;width:100%}.admin-invite-cell{max-width:300px}.invite-row{align-items:stretch}.invite-row .btn{white-space:nowrap}}
