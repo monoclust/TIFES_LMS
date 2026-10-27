@@ -31,7 +31,7 @@ export type RepositorySubmissionInput = z.infer<typeof repositorySubmissionSchem
 export const institutionCreateSchema = z.object({
   name: z.string().trim().min(2).max(180),
   slug: z.string().trim().toLowerCase().min(2).max(80).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and single hyphens."),
-  code: z.string().trim().max(40).optional(),
+  code: z.string().trim().max(40).optional().transform((value) => value || undefined),
   type: z.enum(["SCHOOL", "COLLEGE", "TRAINING_INSTITUTE", "OTHER"]).default("OTHER"),
   address: z.string().trim().max(2000).optional(),
   contactName: z.string().trim().max(160).optional(),
