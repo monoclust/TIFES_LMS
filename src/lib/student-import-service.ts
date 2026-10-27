@@ -141,8 +141,8 @@ async function analyse(actor: Actor, institutionId: string, file: File): Promise
       select: { id: true, code: true },
     }) : Promise.resolve([]),
   ]);
-  const batchMap = new Map(batches.map((batch) => [batch.code.toLowerCase(), batch]));
-  const programmeMap = new Map(programmes.map((programme) => [programme.code.toLowerCase(), programme]));
+  const batchMap = new Map(batches.map((batch) => [batch.code.toLowerCase(), batch] as const));
+  const programmeMap = new Map(programmes.map((programme) => [programme.code.toLowerCase(), programme] as const));
 
   for (const item of normalizedRows) {
     const codeKey = item.data.studentCode.toLowerCase();
@@ -216,7 +216,7 @@ export async function commitStudentImport(actor: Actor, institutionId: string, f
       where: { institutionId, studentCode: { in: data.map((row) => row.studentCode) } },
       select: { id: true, studentCode: true },
     });
-    const idByCode = new Map(createdStudents.map((student) => [student.studentCode.toLowerCase(), student.id]));
+    const idByCode = new Map(createdStudents.map((student) => [student.studentCode.toLowerCase(), student.id] as const));
     const enrollments = result.validRows.flatMap((row) => {
       if (!row.batchId) return [];
       const studentId = idByCode.get(row.data.studentCode.toLowerCase());
