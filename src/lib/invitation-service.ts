@@ -31,6 +31,15 @@ export async function createInstitutionInvitation(actor: Actor, rawInput: unknow
 
   const baseUrl = process.env.AUTH_URL;
   if (!baseUrl) throw new Error("AUTH_URL_NOT_CONFIGURED");
+  let inviteUrl: URL;
+  try {
+    inviteUrl = new URL("/accept-invitation", baseUrl);
+  } catch {
+    throw new Error("AUTH_URL_NOT_CONFIGURED");
+  }
+  if (process.env.NODE_ENV === "production" && inviteUrl.protocol !== "https:") {
+    throw new Error("AUTH_URL_NOT_CONFIGURED");
+  }
   const token = createInvitationToken();
   const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000);
   const invitation = await prisma.invitation.create({
@@ -44,7 +53,6 @@ export async function createInstitutionInvitation(actor: Actor, rawInput: unknow
     },
     select: { id: true, expiresAt: true },
   });
-  const inviteUrl = new URL("/accept-invitation", baseUrl);
   inviteUrl.searchParams.set("token", token.rawToken);
   return { invitationId: invitation.id, inviteUrl: inviteUrl.toString(), expiresAt };
 }
