@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   Activity, ArrowDownToLine, ArrowRight, Bell, BookOpen, BriefcaseBusiness,
   ChartNoAxesCombined, CheckCheck, ChevronDown, CircleHelp,
@@ -48,7 +49,7 @@ function Sidebar({ mobile = false, onNavigate }: { mobile?: boolean; onNavigate?
   });
   return <aside className={`sidebar ${mobile ? "mobile-open" : ""}`}>
     <a className="brand" href="#overview" aria-label="Techievo LMS home" onClick={onNavigate}>
-      <span className="brand-mark">T.</span><span><span className="brand-name">techievo</span><span className="brand-sub" style={{ display: "block" }}>Learning platform</span></span>
+      <Image src="/brand/White_Logo.svg" alt="Techievo" width={132} height={38} priority unoptimized style={{ width: 132, height: "auto" }} />
     </a>
     <div className="tenant-switch"><small>Workspace</small><strong>Platform operations</strong><span>Super Admin view</span></div>
     <nav aria-label="Main navigation"><div className="nav-label">Workspace</div><div className="nav-list">{renderItems(mainNav)}</div><div className="nav-label" style={{ marginTop: 24 }}>Insights & control</div><div className="nav-list">{renderItems(manageNav)}</div></nav>
