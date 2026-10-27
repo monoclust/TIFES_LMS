@@ -14,7 +14,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "admin:bootstrap": "tsx scripts/bootstrap-super-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
@@ -40,6 +41,7 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
     "@eslint/eslintrc": "^3.3.1",
-    "autoprefixer": "^10.4.21"
+    "autoprefixer": "^10.4.21",
+    "tsx": "^4.20.6"
   }
 }
