@@ -29,6 +29,8 @@ export async function createInstitutionInvitation(actor: Actor, rawInput: unknow
   const institution = await prisma.institution.findUnique({ where: { id: input.institutionId }, select: { id: true, status: true } });
   if (!institution || institution.status !== "ACTIVE") throw new Error("INSTITUTION_UNAVAILABLE");
 
+  const baseUrl = process.env.AUTH_URL;
+  if (!baseUrl) throw new Error("AUTH_URL_NOT_CONFIGURED");
   const token = createInvitationToken();
   const expiresAt = new Date(Date.now() + 48 * 60 * 60 * 1000);
   const invitation = await prisma.invitation.create({
@@ -42,8 +44,6 @@ export async function createInstitutionInvitation(actor: Actor, rawInput: unknow
     },
     select: { id: true, expiresAt: true },
   });
-  const baseUrl = process.env.AUTH_URL;
-  if (!baseUrl) throw new Error("AUTH_URL_NOT_CONFIGURED");
   const inviteUrl = new URL("/accept-invitation", baseUrl);
   inviteUrl.searchParams.set("token", token.rawToken);
   return { invitationId: invitation.id, inviteUrl: inviteUrl.toString(), expiresAt };
