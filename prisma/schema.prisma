@@ -20,8 +20,11 @@ enum UserStatus {
   DISABLED
 }
 
-enum Role {
+enum PlatformRole {
   SUPER_ADMIN
+}
+
+enum Role {
   INSTITUTION_COORDINATOR
   STUDENT
   MENTOR
@@ -93,6 +96,7 @@ model User {
   emailVerified     DateTime?
   image             String?
   status            UserStatus    @default(INVITED)
+  platformRole      PlatformRole?
   passwordHash      String?
   accountSetupAt    DateTime?
   createdAt         DateTime      @default(now())
