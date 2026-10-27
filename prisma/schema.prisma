@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum InstitutionType {
+  SCHOOL
+  COLLEGE
+  TRAINING_INSTITUTE
+  OTHER
+}
+
 enum InstitutionStatus {
   ACTIVE
   SUSPENDED
@@ -72,6 +79,13 @@ model Institution {
   id          String            @id @default(cuid())
   name        String
   slug        String            @unique
+  code        String?           @unique
+  type        InstitutionType   @default(OTHER)
+  address     String?           @db.Text
+  contactName String?
+  contactEmail String?
+  contactPhone String?
+  academicYear String?
   status      InstitutionStatus @default(ACTIVE)
   timezone    String            @default("Asia/Kolkata")
   createdAt   DateTime          @default(now())
