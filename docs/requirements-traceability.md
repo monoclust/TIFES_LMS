@@ -18,9 +18,9 @@ Record conflicts before implementation. Do not silently replace source requireme
 
 | ID | Capability | Acceptance evidence required | Status |
 |---|---|---|---|
-| AUTH-01 | Invitation acceptance and account setup | Expiring single-use invitation; token stored as a hash; invalid/expired/replayed token tests | Not implemented |
-| AUTH-02 | Authentication and session controls | Protected server routes/actions; session revocation; suspended account denied | Not implemented |
-| RBAC-01 | Role-based access | Server-side role and resource authorization tests for every role | Not implemented |
+| AUTH-01 | Invitation acceptance and account setup | Expiring single-use invitation; token stored as a hash; invalid/expired/replayed token tests | Partial: token inspection, transactional acceptance and password setup implemented; delivery not connected |
+| AUTH-02 | Authentication and session controls | Protected server routes/actions; session revocation; suspended account denied | Partial: email/password credentials and status/authVersion checks implemented; reset delivery, rate limiting and MFA remain open |
+| RBAC-01 | Role-based access | Server-side role and resource authorization tests for every role | Partial: pure policy helper and unit tests exist; comprehensive route enforcement is not implemented |
 | TEN-01 | Institution isolation | Cross-tenant read/write tests for every institution-scoped resource | Not implemented |
 | INST-01 | Institution lifecycle | Super Admin create/update/suspend; sensitive actions audited | Not implemented |
 | USER-01 | Coordinator and staff invitations | Role-limited invitations, expiry, resend/revoke and audit history | Not implemented |
