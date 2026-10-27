@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
@@ -11,7 +10,6 @@ const credentialsSchema = z.object({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt", maxAge: 60 * 60 * 8 },
   pages: { signIn: "/login" },
   providers: [
@@ -67,8 +65,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub ?? "";
-        session.user.platformRole = token.platformRole ?? null;
-        session.user.status = token.status ?? "DISABLED";
+        session.user.platformRole = token.platformRole === "SUPER_ADMIN" ? "SUPER_ADMIN" : null;
+        session.user.status = token.status === "ACTIVE" || token.status === "INVITED" || token.status === "SUSPENDED" || token.status === "DISABLED" ? token.status : "DISABLED";
         session.user.authenticated = token.revoked !== true;
       }
       return session;
