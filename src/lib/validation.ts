@@ -7,6 +7,9 @@ export const studentImportRowSchema = z.object({
   name: z.string().trim().min(1, "Student name is required").max(160),
   email: optionalEmail,
   phone: z.union([z.string().trim().max(32), z.literal("")]).optional(),
+  programmeCode: z.string().trim().max(40).optional(),
+  batchCode: z.string().trim().max(40).optional(),
+  status: z.enum(["ACTIVE", "INACTIVE", "WITHDRAWN", "ARCHIVED"]).default("ACTIVE"),
 });
 
 export type StudentImportRow = z.infer<typeof studentImportRowSchema>;
