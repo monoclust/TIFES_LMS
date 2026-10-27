@@ -27,7 +27,7 @@ function normalizeRecord(raw: Record<string, unknown>): Record<string, unknown> 
   for (const [header, value] of Object.entries(raw)) {
     const key = header.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
     const field = headerAliases[key];
-    if (field) output[field] = field === "status" ? String(value ?? "").trim().toUpperCase() : value == null ? "" : String(value).trim();
+    if (field) { const normalizedValue = value == null ? "" : String(value).trim(); output[field] = field === "status" ? normalizedValue ? normalizedValue.toUpperCase() : undefined : normalizedValue; }
   }
   return output;
 }
