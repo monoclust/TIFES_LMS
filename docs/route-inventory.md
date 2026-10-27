@@ -96,4 +96,16 @@ These proposed routes must be reconciled with the final navigation specification
 
 ## Current implementation
 
-Only the root route `/` currently exists as a responsive dashboard shell with explicitly illustrative data. The routes listed above are not yet implemented or connected to authentication/data.
+| Route | State |
+|---|---|
+| `/` | Responsive UI foundation preview; illustrative data only |
+| `/login` | Credentials sign-in UI connected to Auth.js |
+| `/workspace` | Authenticated role/membership handoff, not a full role dashboard |
+| `/accept-invitation` | Invitation token inspection and expiry checks |
+| `/account-setup` | Transactional invitation acceptance and password setup |
+| `/access-denied` | Access-denied state |
+| `/reset-password` | Guidance page only; recovery delivery is not implemented |
+| `/api/auth/[...nextauth]` | Auth.js handlers |
+| `/api/admin/invitations` | Authenticated invitation creation endpoint; returns a link but does not email it |
+
+The role-specific dashboards and most data routes listed above remain planned. Authentication is not yet connected to all application data operations; do not treat this inventory as a claim of complete LMS functionality.
